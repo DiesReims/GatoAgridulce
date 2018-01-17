@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 50px;
+    background-color: black;
+    color: rgb(255, 0, 76);
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+nav > h2{
+    width: 20%;
+    height: 50px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+nav > li{
+    width: 20%;
+    height: 50px;
+    padding: 0;
+    font-size: 1.5em;
+    box-sizing: border-box;
+    list-style: none;
+    transition: 0.5s;
+    text-align: center;
+}
+
+a{
+    width:100%;
+    height: 50px;
+    padding: 10px 35%;
+    color:whitesmoke;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: flex;
+}
+
+li :hover{
+     background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 0, 43)), to(rgba(235, 45, 12, 0.87)));
+}

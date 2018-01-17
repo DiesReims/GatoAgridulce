@@ -1,0 +1,43 @@
+<div class="formulario" *ngIf="receta">
+  <h2>Receta {{actionMode}}</h2>
+  <div class="campo">
+      <label>Identificador:</label>
+      <input [(ngModel)]="receta.id" type="number">
+  </div>
+  <div class="campo">
+      <label>Nombre receta:</label>
+      <input [(ngModel)]="receta.strNombreReceta">
+  </div>
+  <div class="campo">
+    <label>Detalle:</label>
+    <input [(ngModel)]="receta.strDetalleReceta">
+  </div>
+  <div class="campo">
+      <label>Número ingredientes:</label>
+      <input [(ngModel)]="receta.intNumeroIngredientes" type="number">
+  </div>
+  <div class="campo">
+      <label>Tiempo preparacción:</label>
+      <input [(ngModel)]="receta.decTiempoPreparacion" type="number">
+  </div>
+  <div class="campo">
+      <label>Costo elaboración:</label>
+      <input [(ngModel)]="receta.curCostoBase" type="number">
+  </div>
+  <div class="campo">
+      <label>Precio venta:</label>
+      <input [(ngModel)]="receta.curPrecioVenta" type="number">
+  </div>
+  <div class="campo">
+      <label>Fecha creación:</label>
+      <input [(ngModel)]="receta.dteFechaCreacion" type="date">
+  </div>
+  <div class="campo">
+      <label>Imagen:</label>
+      <input [(ngModel)]="receta.imgBanner" type="image">
+  </div>
+  <div class="campo">
+    <button (click)="guardarElemento()">Guardar</button>
+    <button (click)="salir()">Cancelar</button>
+  </div>
+</div>
