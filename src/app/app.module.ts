@@ -7,12 +7,14 @@ import { RecetasComponent } from './recetas/recetas.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { RecetasDetalleComponent } from './recetas-detalle/recetas-detalle.component';
 import { RecetasService } from './recetas.service';
+import { ClientesComponent } from './clientes/clientes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecetasComponent,
-    RecetasDetalleComponent
+    RecetasDetalleComponent,
+    ClientesComponent
   ],
   imports: [
     BrowserModule,

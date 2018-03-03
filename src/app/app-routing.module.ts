@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { RecetasComponent } from './recetas/recetas.component';
 import { RecetasDetalleComponent } from './recetas-detalle/recetas-detalle.component';
+import { ClientesComponent } from './clientes/clientes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recetas', pathMatch: 'full' },
   { path: 'recetas', component: RecetasComponent },
   {path: 'recetasDetalle', component: RecetasDetalleComponent},
+  {path: 'clientes', component: ClientesComponent},
   { path: 'recetasDetalle:id', component: RecetasDetalleComponent }
 ];
 
