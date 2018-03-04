@@ -1,43 +1,50 @@
-<div class="formulario" *ngIf="receta">
-  <h2>Receta {{actionMode}}</h2>
-  <div class="campo">
-      <label>Identificador:</label>
-      <input [(ngModel)]="receta.id" type="number">
-  </div>
-  <div class="campo">
-      <label>Nombre receta:</label>
-      <input [(ngModel)]="receta.strNombreReceta">
-  </div>
-  <div class="campo">
-    <label>Detalle:</label>
-    <input [(ngModel)]="receta.strDetalleReceta">
-  </div>
-  <div class="campo">
-      <label>Número ingredientes:</label>
-      <input [(ngModel)]="receta.intNumeroIngredientes" type="number">
-  </div>
-  <div class="campo">
-      <label>Tiempo preparacción:</label>
-      <input [(ngModel)]="receta.decTiempoPreparacion" type="number">
-  </div>
-  <div class="campo">
-      <label>Costo elaboración:</label>
-      <input [(ngModel)]="receta.curCostoBase" type="number">
-  </div>
-  <div class="campo">
-      <label>Precio venta:</label>
-      <input [(ngModel)]="receta.curPrecioVenta" type="number">
-  </div>
-  <div class="campo">
-      <label>Fecha creación:</label>
-      <input [(ngModel)]="receta.dteFechaCreacion" type="date">
-  </div>
-  <div class="campo">
-      <label>Imagen:</label>
-      <input [(ngModel)]="receta.imgBanner" type="image">
-  </div>
-  <div class="campo">
-    <button (click)="guardarElemento()">Guardar</button>
-    <button (click)="salir()">Cancelar</button>
-  </div>
+<div class="container">
+        <div class="col-md-4 col-md-offset-8" *ngIf="receta">
+                <form>
+                    <legend>Receta {{actionMode}}</legend>
+                    <fieldset>
+                            <div class="form-group">
+                                    <label>Identificador:</label>
+                                    <input  class="form-control" [(ngModel)]="receta.id" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre receta:</label>
+                                    <input class="form-control" [(ngModel)]="receta.strNombreReceta">
+                                </div>
+                                <div class="form-group">
+                                  <label>Detalle:</label>
+                                  <input class="form-control" [(ngModel)]="receta.strDetalleReceta">
+                                </div>
+                                <div class="form-group">
+                                    <label>Número ingredientes:</label>
+                                    <input class="form-control" [(ngModel)]="receta.intNumeroIngredientes" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tiempo preparacción:</label>
+                                    <input class="form-control" [(ngModel)]="receta.decTiempoPreparacion" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label>Costo elaboración:</label>
+                                    <input class="form-control" [(ngModel)]="receta.curCostoBase" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio venta:</label>
+                                    <input class="form-control" [(ngModel)]="receta.curPrecioVenta" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label>Fecha creación:</label>
+                                    <input class="form-control" [(ngModel)]="receta.dteFechaCreacion" type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagen:</label>
+                                    <input class="form-control" [(ngModel)]="receta.imgBanner" type="image">
+                                </div>
+                                <div class="form-group">     
+                                  <button (click)="guardarElemento()" type="button" class="btn btn-outline-success">Guardar</button>
+                                  <button (click)="salir()" type="button" class="btn btn-outline-danger">Cancelar</button>
+                                </div>
+                    </fieldset>
+                </form>
+        </div>
 </div>
+
