@@ -1,0 +1,21 @@
+<div class="container">
+<form [formGroup] = "rForm" (ngSubmit)="Aceptar(rForm.value)">
+  <legend>
+    Clientes {{actionForm}}
+  </legend>
+  <fieldset>
+    <div class="form-group">
+      <label for="strNombre">Nombre:</label>
+      <input class="form-control" type="text" required [(ngModel)="cliente.strNombre"] name="strNombre" formControlName="strNombre">
+    </div>
+    <div class="form-group">
+        <label for="strAPaterno">A. Paterno:</label>
+        <input class="form-control" type="text" required [(ngModel)="cliente.strAPaterno"] name="strAPaterno" formControlName="strAPaterno">
+      </div>
+      <div>
+        <input class="btn btn-sucess" type="submit" value="Aceptar" [dissabled]="!rForm.valid">
+        <button class="btn btn-danger" (click)="Cancelar">Cancelar</button>
+      </div>
+  </fieldset>
+</form>
+</div>

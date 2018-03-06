@@ -1,8 +1,13 @@
-<form>
-  <legend>
-    Clientes
-  </legend>
-  <fieldset>
-    <input type="text" required [(ngmodel)="this.cliente.strNombre" name="strNombre"]>
-  </fieldset>
-</form>
+<div class="titulo">
+    <h2>Clientes</h2>
+  </div>
+  <div>
+    <button  class="btn-Agregar" routerLink="/clientesDetalle">+</button>
+    <li class="elemento" *ngFor="let receta of clientes">
+      {{receta.strNombreReceta}} .- {{receta.strDetalleReceta}}
+      <span class="botoneria">
+        <button class="btn-base Editar" (click)="editar(receta.id)">Editar</button>
+        <button class="btn-base Eliminar" (click)="eliminar(receta.id)">Eliminar</button>
+      </span>
+    </li>
+  </div>

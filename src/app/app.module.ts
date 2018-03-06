@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule} from '@angular/http'
 
 import { AppComponent } from './app.component';
 import { RecetasComponent } from './recetas/recetas.component';
@@ -9,6 +10,7 @@ import { RecetasDetalleComponent } from './recetas-detalle/recetas-detalle.compo
 import { RecetasService } from './recetas.service';
 import { ClientesComponent } from './clientes/clientes.component';
 import { MainComponent } from './main/main.component';
+import { ClientesDetalleComponent } from './clientes-detalle/clientes-detalle.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +18,15 @@ import { MainComponent } from './main/main.component';
     RecetasComponent,
     RecetasDetalleComponent,
     ClientesComponent,
-    MainComponent
+    MainComponent,
+    ClientesDetalleComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    FormGroup,
-    Validators
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [RecetasService],
   bootstrap: [AppComponent]
