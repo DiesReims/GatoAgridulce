@@ -3,9 +3,11 @@ import {RouterModule, Routes} from '@angular/router';
 import { RecetasComponent } from './recetas/recetas.component';
 import { RecetasDetalleComponent } from './recetas-detalle/recetas-detalle.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/recetas', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  {path:'main', component: MainComponent},
   { path: 'recetas', component: RecetasComponent },
   {path: 'recetasDetalle', component: RecetasDetalleComponent},
   {path: 'clientes', component: ClientesComponent},

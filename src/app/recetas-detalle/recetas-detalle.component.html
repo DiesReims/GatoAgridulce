@@ -1,46 +1,49 @@
 <div class="container">
         <div class="col-md-4 col-md-offset-8" *ngIf="receta">
-                <form>
+                <form #recetaForm="ngForm">
                     <legend>Receta {{actionMode}}</legend>
                     <fieldset>
                             <div class="form-group">
                                     <label>Identificador:</label>
-                                    <input  class="form-control" [(ngModel)]="receta.id" type="number">
+                                    <input  class="form-control" [(ngModel)]="receta.id" type="number" name="id" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre receta:</label>
-                                    <input class="form-control" [(ngModel)]="receta.strNombreReceta">
+                                    <input class="form-control" [(ngModel)]="receta.strNombreReceta" name="strnombreReceta" #name="ngModel" required>
+                                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                                        ¡Nombre es requerido!
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                   <label>Detalle:</label>
-                                  <input class="form-control" [(ngModel)]="receta.strDetalleReceta">
+                                  <input class="form-control" [(ngModel)]="receta.strDetalleReceta" name="strDetalleReceta">
                                 </div>
                                 <div class="form-group">
                                     <label>Número ingredientes:</label>
-                                    <input class="form-control" [(ngModel)]="receta.intNumeroIngredientes" type="number">
+                                    <input class="form-control" [(ngModel)]="receta.intNumeroIngredientes" type="number" name="intNumeroIngredientes">
                                 </div>
                                 <div class="form-group">
                                     <label>Tiempo preparacción:</label>
-                                    <input class="form-control" [(ngModel)]="receta.decTiempoPreparacion" type="number">
+                                    <input class="form-control" [(ngModel)]="receta.decTiempoPreparacion" type="number" name="decTiempoPreparacion">
                                 </div>
                                 <div class="form-group">
                                     <label>Costo elaboración:</label>
-                                    <input class="form-control" [(ngModel)]="receta.curCostoBase" type="number">
+                                    <input class="form-control" [(ngModel)]="receta.curCostoBase" type="number" name="curCostoBase">
                                 </div>
                                 <div class="form-group">
                                     <label>Precio venta:</label>
-                                    <input class="form-control" [(ngModel)]="receta.curPrecioVenta" type="number">
+                                    <input class="form-control" [(ngModel)]="receta.curPrecioVenta" type="number" name="curPrecioVenta">
                                 </div>
                                 <div class="form-group">
                                     <label>Fecha creación:</label>
-                                    <input class="form-control" [(ngModel)]="receta.dteFechaCreacion" type="date">
+                                    <input class="form-control" [(ngModel)]="receta.dteFechaCreacion" type="date" name="dteFechaCreacion">
                                 </div>
                                 <div class="form-group">
                                     <label>Imagen:</label>
-                                    <input class="form-control" [(ngModel)]="receta.imgBanner" type="image">
+                                    <input class="form-control" [(ngModel)]="receta.imgBanner" type="image" name="imgBanner">
                                 </div>
                                 <div class="form-group">     
-                                  <button (click)="guardarElemento()" type="button" class="btn btn-outline-success">Guardar</button>
+                                  <button [disabled]="!recetaForm.form.valid" (click)="guardarElemento()" type="button" class="btn btn-outline-success">Guardar</button>
                                   <button (click)="salir()" type="button" class="btn btn-outline-danger">Cancelar</button>
                                 </div>
                     </fieldset>

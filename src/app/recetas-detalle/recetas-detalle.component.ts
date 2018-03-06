@@ -62,6 +62,6 @@ private actionMode: string;
   }
 
   private salir(): void {
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/recetas');
   }
 }
