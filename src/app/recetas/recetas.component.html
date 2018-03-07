@@ -1,13 +1,32 @@
-<div class="titulo">
-  <h2>Recetas</h2>
-</div>
-<div>
-  <button  class="btn-Agregar" routerLink="/recetasDetalle">+</button>
-  <li class="elemento" *ngFor="let receta of recetas">
-    {{receta.strNombreReceta}} .- {{receta.strDetalleReceta}}
-    <span class="botoneria">
-      <button class="btn-base Editar" (click)="editar(receta.id)">Editar</button>
-      <button class="btn-base Eliminar" (click)="eliminar(receta.id)">Eliminar</button>
-    </span>
-  </li>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <h2>Recetas Gato Agridulce</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" routerLink="/recetasDetalle">+</button>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+      <div class="alert alert-info col-md-12">
+          <h4>¡No existen registros aún!</h4>
+          <p>Intenta agregar algunas recetas.</p>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <ul class="list-group" *ngIf="recetas">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let receta of recetas">
+              <strong>{{receta.strNombreReceta}}</strong> .- {{receta.strDetalleReceta}}
+              <span class="botoneria">
+                <button class="btn btn-info" (click)="editar(receta.id)">Editar</button>
+                <button class="btn btn-danger" (click)="eliminar(receta.id)">Eliminar</button>
+              </span>
+            </li>
+          </ul>
+    </div>
+  </div>
 </div>

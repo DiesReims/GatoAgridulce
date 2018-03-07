@@ -1,5 +1,5 @@
 <div class="container">
-        <div class="col-md-4 col-md-offset-8" *ngIf="receta">
+        <div class="col-md-4 center_div" *ngIf="receta">
                 <form #recetaForm="ngForm">
                     <legend>Receta {{actionMode}}</legend>
                     <fieldset>
@@ -37,10 +37,6 @@
                                 <div class="form-group">
                                     <label>Fecha creación:</label>
                                     <input class="form-control" [(ngModel)]="receta.dteFechaCreacion" type="date" name="dteFechaCreacion">
-                                </div>
-                                <div class="form-group">
-                                    <label>Imagen:</label>
-                                    <input class="form-control" [(ngModel)]="receta.imgBanner" type="image" name="imgBanner">
                                 </div>
                                 <div class="form-group">     
                                   <button [disabled]="!recetaForm.form.valid" (click)="guardarElemento()" type="button" class="btn btn-outline-success">Guardar</button>
