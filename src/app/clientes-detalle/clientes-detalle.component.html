@@ -6,14 +6,15 @@
   <fieldset>
     <div class="form-group">
       <label for="strNombre">Nombre:</label>
-      <input class="form-control" type="text" required [(ngModel)="cliente.strNombre"] name="strNombre" formControlName="strNombre">
+      <input class="form-control" type="text" required [(ngModel)]="cliente.strNombre" name="strNombre" formControlName="strNombre">
+      <div class="alert alert-danger" *ngIf="!rForm.controls['strNombre'].valid && !rForm.controls['strNombre'].touched">Campo requerido.</div>
     </div>
     <div class="form-group">
         <label for="strAPaterno">A. Paterno:</label>
-        <input class="form-control" type="text" required [(ngModel)="cliente.strAPaterno"] name="strAPaterno" formControlName="strAPaterno">
+        <input class="form-control" type="text" required [(ngModel)]="cliente.strAPaterno" name="strAPaterno" formControlName="strAPaterno">
       </div>
       <div>
-        <input class="btn btn-sucess" type="submit" value="Aceptar" [disabled]="!rForm.valid">
+        <input class="btn btn-sucess" type="submit" value="Aceptar" [disabled]="rForm.valid">
         <button class="btn btn-danger" (click)="Cancelar">Cancelar</button>
       </div>
   </fieldset>

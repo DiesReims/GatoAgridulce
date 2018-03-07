@@ -11,6 +11,7 @@ import { RecetasService } from './recetas.service';
 import { ClientesComponent } from './clientes/clientes.component';
 import { MainComponent } from './main/main.component';
 import { ClientesDetalleComponent } from './clientes-detalle/clientes-detalle.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ClientesDetalleComponent } from './clientes-detalle/clientes-detalle.co
     RecetasDetalleComponent,
     ClientesComponent,
     MainComponent,
-    ClientesDetalleComponent
+    ClientesDetalleComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
