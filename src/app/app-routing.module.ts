@@ -5,15 +5,17 @@ import { RecetasDetalleComponent } from './recetas-detalle/recetas-detalle.compo
 import { ClientesComponent } from './clientes/clientes.component';
 import { MainComponent } from './main/main.component';
 import { ClientesDetalleComponent } from './clientes-detalle/clientes-detalle.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {path:'main', component: MainComponent},
   { path: 'recetas', component: RecetasComponent },
   {path: 'recetasDetalle', component: RecetasDetalleComponent},
   {path: 'clientes', component: ClientesComponent},
   {path: 'clientesDetalle', component: ClientesDetalleComponent},
-  { path: 'recetasDetalle:id', component: RecetasDetalleComponent }
+  { path: 'recetasDetalle:id', component: RecetasDetalleComponent },
+  {path: 'login', component:LoginComponent}
 ];
 
 @NgModule({

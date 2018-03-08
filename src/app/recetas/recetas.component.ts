@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Receta } from '../Modelos/Recetas';
-import { RecetasService} from '../recetas.service';
-import { Router} from '@angular/router';
+import { RecetasService } from '../recetas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recetas',
@@ -9,19 +9,27 @@ import { Router} from '@angular/router';
   styleUrls: ['./recetas.component.css']
 })
 export class RecetasComponent implements OnInit {
-public recetas: Receta[];
-private servicio: RecetasService;
+  private sinRegistros: boolean = false;
+  public recetas: Receta[];
+  private servicio: RecetasService;
   constructor(_sercivioReceta: RecetasService,
-  private router: Router) {
+    private router: Router) {
     this.servicio = _sercivioReceta;
-   }
+  }
 
   ngOnInit() {
     this.recetas = this.servicio.obtenerRecetas();
     if (this.recetas == null) {
       this.recetas = new Array<Receta>();
-    }else {
+      this.sinRegistros = true;
+    } else {
       console.log(this.recetas);
+    }
+  }
+
+  ngOnChanges() {
+    if (this.recetas.length > 0){
+      this.sinRegistros = false;
     }
   }
 
@@ -30,10 +38,15 @@ private servicio: RecetasService;
   }
 
   private eliminar(_id: number): void {
-    const res = alert('¿Deseas eliminar la receta?');
-    if (res == null) {
+    const res = confirm('¿Deseas eliminar la receta?');
+    if (res == false) {
       return;
     }
-    // Llamar función de eliminado
+    else {
+      // Llamar función de eliminado.
+      var element = this.recetas.findIndex(c=> c.id === _id);
+      this.recetas.splice(element,1);
+    }
   }
+
 }

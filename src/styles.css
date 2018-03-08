@@ -3,3 +3,11 @@
     margin: 0 auto;
     width:80% /* value of your choice which suits your alignment */
 }
+
+.ng-valid[required], .ng-valid.required {
+    border-left: 5px solid #42A948;
+    }
+    
+    .ng-invalid:not(form) {
+        border-left: 5px solid #a94442;
+    }

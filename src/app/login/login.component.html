@@ -1,3 +1,27 @@
-<p>
-  login works!
-</p>
+<div class="container">
+  <br/>
+  <div class="card card-primary col-md-8 center_div">
+    <form class="horizontal-form" (ngSubmit)="logear(loginForm)">
+      <legend>Iniciar Sesión "Gato Agridulce"</legend>
+      <br>
+      <fieldset>
+        <div class="form-group">
+          <label for="strUsuario">Usuario:</label>
+          <input type="text" class="form-control" name="strUsuario">
+          <div class="alert alert-danger" *ngIf="false">
+            ¡Ingresar el usuario por favor! :)
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="">Contraseña:</label>
+          <input type="password" class="form-control" name="strPassword">
+          <div class="alert alert-danger" *ngIf="false">
+            ¡Ingresa la contraseña por favor! :)
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" [disabled]="true">Ingresar</button>
+      </fieldset>
+    </form>
+    <br>
+  </div>
+</div>
