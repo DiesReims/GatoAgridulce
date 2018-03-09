@@ -1,25 +1,25 @@
 <div class="container">
   <br/>
   <div class="card card-primary col-md-8 center_div">
-    <form class="horizontal-form" (ngSubmit)="logear(loginForm)">
+    <form class="horizontal-form" [formGroup]="loginForm" (ngSubmit)="logear(loginForm.value)" novalidate>
       <legend>Iniciar Sesión "Gato Agridulce"</legend>
       <br>
       <fieldset>
         <div class="form-group">
           <label for="strUsuario">Usuario:</label>
-          <input type="text" class="form-control" name="strUsuario">
-          <div class="alert alert-danger" *ngIf="false">
-            ¡Ingresar el usuario por favor! :)
+          <input type="text" class="form-control" formControlName="strUsuario">
+          <div class="alert alert-danger" [hidden]="loginForm.controls['strUsuario'].valid || !loginForm.controls['strUsuario'].touched">
+            Ingresa un usuario para iniciar sesión.
           </div>
         </div>
         <div class="form-group">
           <label for="">Contraseña:</label>
-          <input type="password" class="form-control" name="strPassword">
-          <div class="alert alert-danger" *ngIf="false">
-            ¡Ingresa la contraseña por favor! :)
+          <input type="password" class="form-control" formControlName="strPassword">
+          <div class="alert alert-danger" [hidden]="loginForm.controls['strPassword'].valid || !loginForm.controls['strPassword'].touched">
+            Ingresa una contraseña tambien para iniciar sesión.
           </div>
         </div>
-        <button class="btn btn-primary btn-block" [disabled]="true">Ingresar</button>
+        <button class="btn btn-primary btn-block" [disabled]="!loginForm.valid">Ingresar</button>
       </fieldset>
     </form>
     <br>
