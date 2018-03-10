@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFirestore} from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,7 @@ import { AngularFirestore} from 'angularfire2/firestore';
 })
 export class AppComponent {
   title = 'Gato Agridulce';
-  tokenSesionUser: string = "";
-  usernameLoged: string = "";
 
-  constructor(db: AngularFirestore){
+  constructor(){
   }
 }
