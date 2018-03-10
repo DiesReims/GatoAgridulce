@@ -12,6 +12,10 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { MainComponent } from './main/main.component';
 import { ClientesDetalleComponent } from './clientes-detalle/clientes-detalle.component';
 import { LoginComponent } from './login/login.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from "angularfire2";
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuariosDetalleComponent } from './usuarios-detalle/usuarios-detalle.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +25,17 @@ import { LoginComponent } from './login/login.component';
     ClientesComponent,
     MainComponent,
     ClientesDetalleComponent,
-    LoginComponent
+    LoginComponent,
+    UsuariosComponent,
+    UsuariosDetalleComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [RecetasService],
   bootstrap: [AppComponent]
