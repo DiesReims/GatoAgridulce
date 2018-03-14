@@ -17,6 +17,7 @@ import { AngularFireModule } from "angularfire2";
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuariosDetalleComponent } from './usuarios-detalle/usuarios-detalle.component';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { UsuariosService } from './usuarios.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
     HttpModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [RecetasService, AngularFireModule, AngularFireDatabase],
+  providers: [RecetasService, AngularFireModule, AngularFireDatabase, UsuariosService],
   bootstrap: [AppComponent]
 
 })

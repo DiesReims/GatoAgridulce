@@ -40,14 +40,18 @@ export class LoginComponent implements OnInit {
   logear(_post:any):void {
     this.objPost = _post;
     //TODO:Logica de servicio y validación...
-    var result = this.usuariosService.getUsers(this.objPost.strUsuario, this.objPost.strPassword).valueChanges();
+    var result = this.usuariosService.getUsers(this.objPost.strUsuario, this.objPost.strPassword).valueChanges().subscribe(data => this.usuarios = data);
     //TODO:Servicio para manejar inicios de sesión.
-    if (this.objPost.strUsuario === result[0].strUser  && this.objPost.strPassword=== result[0].strPassword)
+    for (let user of this.usuarios)
     {
-      this.router.navigateByUrl('/main');
-    }
-    else{
-      alert("Inicio de sesión no válido.");
+      console.log(user);
+      if (this.objPost.strUsuario === user.strUsuario && this.objPost.strPassword === user.strPassword)
+      {
+        this.router.navigateByUrl('/main');
+      }
+      else{
+        alert("Inicio de sesión no válido.");
+      }
     }
   }
 
