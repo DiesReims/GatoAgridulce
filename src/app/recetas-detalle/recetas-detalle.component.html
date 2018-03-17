@@ -3,10 +3,6 @@
                 <form #recetaForm="ngForm">
                     <legend>Receta {{actionMode}}</legend>
                     <fieldset>
-                            <div class="form-group">
-                                    <label>Identificador:</label>
-                                    <input  class="form-control" [(ngModel)]="receta.id" type="number" name="id" required>
-                                </div>
                                 <div class="form-group">
                                     <label>Nombre receta:</label>
                                     <input class="form-control" [(ngModel)]="receta.strNombreReceta" name="strnombreReceta" #name="ngModel" required>

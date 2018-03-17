@@ -33,18 +33,28 @@ export class RecetasComponent implements OnInit {
     }
   }
 
-  private editar(_id: number) {
-    this.router.navigateByUrl('//recetasDetalle//' + _id);
+  private editar(_key: string): void {
+    const loadPage = this.router.navigate(['recetasDetalle', _key]);
+    loadPage.then((val)=>{
+      if(val){
+        console.log('Se cargo de forma correcta pantalla de edición');
+      }
+      else{
+        console.log('No se logró cargar de forma correcta');
+      }
+    },(err)=>{
+      alert('Ocurrio un error al momento de cargar la pantalla' + err);
+    });
   }
 
-  private eliminar(_id: number): void {
+  private eliminar(_key: string): void {
     const res = confirm('¿Deseas eliminar la receta?');
     if (res == false) {
       return;
     }
     else {
       // Llamar función de eliminado.
-      var element = this.recetas.findIndex(c=> c.id === _id);
+      var element = this.recetas.findIndex(c=> c.key === _key);
       this.recetas.splice(element,1);
     }
   }

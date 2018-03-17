@@ -39,8 +39,19 @@ export class LoginComponent implements OnInit {
 
   logear(_post:any):void {
     this.objPost = _post;
+    this.objLogin = new Login();
+    //this.objLogin.strUsuario = this.objPost.strUsuario;
+    //this.objLogin.strPassword = this.objPost.strPassword;
+    //this.usuariosService.addUser(this.objLogin);
     //TODO:Logica de servicio y validación...
-    var result = this.usuariosService.getUsers(this.objPost.strUsuario, this.objPost.strPassword).valueChanges().subscribe(data => this.usuarios = data);
+    //var result = this.usuariosService.getUsers(this.objPost.strUsuario, this.objPost.strPassword).valueChanges().subscribe(data => this.usuarios = data);
+    const result = this.usuariosService.getUsers(this.objPost.strUsuario, this.objPost.strPassword).snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.val();
+        const id = a.payload.key;
+        return { id, ...data };
+      });
+    });
     //TODO:Servicio para manejar inicios de sesión.
     for (let user of this.usuarios)
     {

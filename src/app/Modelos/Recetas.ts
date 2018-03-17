@@ -1,4 +1,5 @@
 export class Receta {
+key: string;
 id: number;
 strNombreReceta: string;
 strDetalleReceta: string;
