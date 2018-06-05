@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class RecetasComponent implements OnInit {
   private sinRegistros: boolean = false;
-  public recetas: Receta[];
   private servicio: RecetasService;
   constructor(_sercivioReceta: RecetasService,
     private router: Router) {
@@ -18,19 +17,22 @@ export class RecetasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.recetas = this.servicio.obtenerRecetas();
-    if (this.recetas == null) {
-      this.recetas = new Array<Receta>();
+    const recetas = this.servicio.getRecetas().snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.val();
+        const id = a.payload.key;
+        console.log('KEY: ' + id + ", DATA: " + data);
+        return {id, data};
+      });
+    });
+    if (recetas == null) {
       this.sinRegistros = true;
     } else {
-      console.log(this.recetas);
+      console.log(recetas);
     }
   }
 
   ngOnChanges() {
-    if (this.recetas.length > 0){
-      this.sinRegistros = false;
-    }
   }
 
   private editar(_key: string): void {
@@ -54,8 +56,6 @@ export class RecetasComponent implements OnInit {
     }
     else {
       // Llamar función de eliminado.
-      var element = this.recetas.findIndex(c=> c.key === _key);
-      this.recetas.splice(element,1);
     }
   }
 

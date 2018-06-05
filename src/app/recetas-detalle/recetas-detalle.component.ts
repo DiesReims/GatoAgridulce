@@ -59,13 +59,13 @@ private actionMode: string;
   guardarElemento(): void 
   {
     this.receta.key = 'HoHuJaKo';
-    this.recetaService.guardarReceta(this.receta);
+    this.recetaService.addReceta(this.receta);
     alert('Se guardó de forma correcta la receta.');
     this.salir();
   }
 
   obtenerReceta(): void{
-    this.recetaService.obtenerReceta(1);
+    this.recetaService.getRecetas();
   }
 
   private salir(): void {

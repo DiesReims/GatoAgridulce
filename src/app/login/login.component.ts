@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       return actions.map(a => {
         const data = a.payload.val();
         const id = a.payload.key;
-        return { id, ...data };
+        return { id, data };
       });
     });
     //TODO:Servicio para manejar inicios de sesión.
