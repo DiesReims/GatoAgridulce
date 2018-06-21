@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
+import { Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +11,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Gato Agridulce';
 
-  constructor(){
+  constructor(private afs: AngularFirestore) {
   }
 }

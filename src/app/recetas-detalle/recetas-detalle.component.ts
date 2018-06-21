@@ -25,19 +25,18 @@ private actionMode: string;
      }
 
   ngOnInit() {
-    //Nuevo Flujo
-    let keyRecetas = this.route.snapshot.paramMap.get("key");
+    // Nuevo Flujo
+    const keyRecetas = this.route.snapshot.paramMap.get('key');
     console.log('La clave recibida es: ' + keyRecetas);
-    if(keyRecetas == null){
-      this.actionMode = 'Nuevo'
+    if (keyRecetas == null) {
+      this.actionMode = 'Nuevo';
       this.receta = new Receta();
-    }
-    else{
-      this.actionMode = 'Editar'
+    } else {
+      this.actionMode = 'Editar';
       this.receta = new Receta();
-      //Llenamos datos de receta.
+      // Llenamos datos de receta.
     }
-    //Viejo Flujo
+    // Viejo Flujo
     //const id = +this.route.snapshot.paramMap.get('id');
     //if (id == null) {
     //  alert('Se requiere información adicional.');
@@ -56,15 +55,14 @@ private actionMode: string;
   }
 
 
-  guardarElemento(): void 
-  {
+  guardarElemento(): void {
     this.receta.key = 'HoHuJaKo';
     this.recetaService.addReceta(this.receta);
     alert('Se guardó de forma correcta la receta.');
     this.salir();
   }
 
-  obtenerReceta(): void{
+  obtenerReceta(): void {
     this.recetaService.getRecetas();
   }
 

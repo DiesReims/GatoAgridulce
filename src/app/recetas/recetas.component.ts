@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./recetas.component.css']
 })
 export class RecetasComponent implements OnInit {
-  private sinRegistros: boolean = false;
+  private sinRegistros = false;
   private servicio: RecetasService;
   constructor(_sercivioReceta: RecetasService,
     private router: Router) {
@@ -21,7 +21,7 @@ export class RecetasComponent implements OnInit {
       return actions.map(a => {
         const data = a.payload.val();
         const id = a.payload.key;
-        console.log('KEY: ' + id + ", DATA: " + data);
+        console.log('KEY: ' + id + ', DATA: ' + data);
         return {id, data};
       });
     });
@@ -32,29 +32,24 @@ export class RecetasComponent implements OnInit {
     }
   }
 
-  ngOnChanges() {
-  }
-
   private editar(_key: string): void {
     const loadPage = this.router.navigate(['recetasDetalle', _key]);
-    loadPage.then((val)=>{
-      if(val){
+    loadPage.then((val) => {
+      if (val) {
         console.log('Se cargo de forma correcta pantalla de edición');
-      }
-      else{
+      }else {
         console.log('No se logró cargar de forma correcta');
       }
-    },(err)=>{
+    }, (err) => {
       alert('Ocurrio un error al momento de cargar la pantalla' + err);
     });
   }
 
   private eliminar(_key: string): void {
     const res = confirm('¿Deseas eliminar la receta?');
-    if (res == false) {
+    if (res === false) {
       return;
-    }
-    else {
+    } else {
       // Llamar función de eliminado.
     }
   }

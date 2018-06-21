@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { AngularFireDatabase, AngularFireAction, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
+import 'rxjs/add/operator/map';
 
 import {Login} from '../Modelos/Login';
-import { query } from '@angular/core/src/animation/dsl';
-import { UsuariosService } from "../usuarios.service";
-import { forEach } from '@angular/router/src/utils/collection';
+import { UsuariosService } from '../usuarios.service';
 
 @Component({
   selector: 'app-login',
@@ -17,53 +15,42 @@ import { forEach } from '@angular/router/src/utils/collection';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private loginForm:FormGroup;
-  private objPost:any;
-  private objLogin: Login;
-  private database: AngularFireDatabase;
-  private usuarios: Login[];
+  private loginForm: FormGroup;
+  private objPost: any;
+  private usersCollection: AngularFirestoreCollection<Login>;
+  private usuarios: any;
 
-  constructor(fb: FormBuilder, 
+  constructor(fb: FormBuilder,
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
-  private usuariosService: UsuariosService) {
+    private afs: AngularFirestore) {
     this.loginForm = fb.group({
-      'strUsuario':[null, Validators.compose([Validators.required, Validators.maxLength(25)])],
-      'strPassword':[null, Validators.compose([Validators.required, Validators.maxLength(25)])]
-    })
+      'strUsuario': [null, Validators.compose([Validators.required, Validators.maxLength(25)])],
+      'strPassword': [null, Validators.compose([Validators.required, Validators.maxLength(25)])]
+    });
    }
 
   ngOnInit() {
   }
 
-  logear(_post:any):void {
+  logear(_post: any): void {
     this.objPost = _post;
-    this.objLogin = new Login();
-    //this.objLogin.strUsuario = this.objPost.strUsuario;
-    //this.objLogin.strPassword = this.objPost.strPassword;
-    //this.usuariosService.addUser(this.objLogin);
-    //TODO:Logica de servicio y validación...
-    //var result = this.usuariosService.getUsers(this.objPost.strUsuario, this.objPost.strPassword).valueChanges().subscribe(data => this.usuarios = data);
-    const result = this.usuariosService.getUsers(this.objPost.strUsuario, this.objPost.strPassword).snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.val();
-        const id = a.payload.key;
-        return { id, data };
+    // TODO:Logica de servicio y validación...
+    this.usersCollection = this.afs.collection('login', ref => ref.where('strPassword', '==', 'indefinido'));
+    this.usuarios = this.usersCollection.snapshotChanges().map(actions => {
+      return actions.map( a => {
+        const data = a.payload.doc.data() as Login;
+        const id = a.payload.doc.id;
+        return {id, data};
       });
-    });
-    //TODO:Servicio para manejar inicios de sesión.
-    for (let user of this.usuarios)
+  });
+    for (const user of this.usuarios)
     {
-      console.log(user);
-      if (this.objPost.strUsuario === user.strUsuario && this.objPost.strPassword === user.strPassword)
-      {
+      if (this.objPost.strUsuario === user.strUsuario && this.objPost.strPassword === user.strPassword) {
         this.router.navigateByUrl('/main');
       }
-      else{
-        alert("Inicio de sesión no válido.");
-      }
     }
+    alert('Usuario o contraseña Incorrecta.s');
   }
-
 }
