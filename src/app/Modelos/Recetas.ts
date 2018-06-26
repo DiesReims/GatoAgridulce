@@ -1,6 +1,6 @@
-export class Receta {
+export interface Receta {
 key: string;
-id: number;
+id: string;
 strNombreReceta: string;
 strDetalleReceta: string;
 intNumeroIngredientes: number;

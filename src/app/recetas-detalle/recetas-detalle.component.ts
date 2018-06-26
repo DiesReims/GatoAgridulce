@@ -30,28 +30,12 @@ private actionMode: string;
     console.log('La clave recibida es: ' + keyRecetas);
     if (keyRecetas == null) {
       this.actionMode = 'Nuevo';
-      this.receta = new Receta();
+      // this.receta = new Receta();
     } else {
       this.actionMode = 'Editar';
-      this.receta = new Receta();
+      // this.receta: Receta;
       // Llenamos datos de receta.
     }
-    // Viejo Flujo
-    //const id = +this.route.snapshot.paramMap.get('id');
-    //if (id == null) {
-    //  alert('Se requiere información adicional.');
-    //  this.salir();
-    //} else {
-    //  if (id === 0 || id < 0) {
-    //    this.actionMode = 'Agregar.';
-    //    this.receta = new Receta();
-    //  } else {
-    //    this.actionMode = 'Editar.';
-    //    const recetaEdit = this.recetaService.obtenerReceta(id);
-    //    console.log(recetaEdit);
-    //    this.receta = recetaEdit;
-    //  }
-    //}
   }
 
 

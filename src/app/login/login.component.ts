@@ -16,7 +16,7 @@ import { UsuariosService } from '../usuarios.service';
 })
 export class LoginComponent implements OnInit {
   private loginForm: FormGroup;
-  private objPost: any;
+  private objPost: Login;
   private usersCollection: AngularFirestoreCollection<Login>;
   private usuarios: any;
 
@@ -34,23 +34,30 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  logear(_post: any): void {
-    this.objPost = _post;
-    // TODO:Logica de servicio y validación...
-    this.usersCollection = this.afs.collection('login', ref => ref.where('strPassword', '==', 'indefinido'));
-    this.usuarios = this.usersCollection.snapshotChanges().map(actions => {
-      return actions.map( a => {
-        const data = a.payload.doc.data() as Login;
-        const id = a.payload.doc.id;
-        return {id, data};
-      });
-  });
-    for (const user of this.usuarios)
-    {
-      if (this.objPost.strUsuario === user.strUsuario && this.objPost.strPassword === user.strPassword) {
-        this.router.navigateByUrl('/main');
+   logear(_post: any): void {
+    try {
+      this.objPost = _post;
+      console.log(this.objPost);
+      // TODO:Logica de servicio y validación...
+      this.usersCollection = this.afs.collection('Usuarios', ref => ref.where('strPassword', '==', this.objPost.strPassword)
+        .where('strUsuario', '==', this.objPost.strUsuario));
+      this.usuarios = this.usersCollection.snapshotChanges().map(actions => {
+        return actions.map( a => {
+          const data = a.payload.doc.data() as Login;
+          const id = a.payload.doc.id;
+          return {id, data};
+        });
+    });
+      for (const user of this.usuarios)
+      {
+        console.log('El valor es:' + user.strUsuario + 'Con pass: ' + user.strPassword);
+        if (this.objPost.strUsuario === user.strUsuario && this.objPost.strPassword === user.strPassword) {
+          this.router.navigateByUrl('/main');
+        }
       }
+      alert('Usuario o contraseña Incorrectas');
+    } catch (error) {
+      console.log(error);
     }
-    alert('Usuario o contraseña Incorrecta.s');
   }
 }

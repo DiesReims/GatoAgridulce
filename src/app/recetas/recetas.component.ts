@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Receta } from '../Modelos/Recetas';
 import { RecetasService } from '../recetas.service';
 import { Router } from '@angular/router';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-recetas',
@@ -11,24 +13,28 @@ import { Router } from '@angular/router';
 export class RecetasComponent implements OnInit {
   private sinRegistros = false;
   private servicio: RecetasService;
+  private recetasAFS: AngularFirestoreCollection<Receta>;
+  private recetas: any;
   constructor(_sercivioReceta: RecetasService,
-    private router: Router) {
+    private router: Router,
+    private afs: AngularFirestore) {
     this.servicio = _sercivioReceta;
   }
 
   ngOnInit() {
-    const recetas = this.servicio.getRecetas().snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.val();
-        const id = a.payload.key;
-        console.log('KEY: ' + id + ', DATA: ' + data);
+    this.recetasAFS = this.afs.collection('Recetas');
+    this.recetas = this.recetasAFS.snapshotChanges().map(action => {
+      return action.map(a => {
+        const data = a.payload.doc.data() as Receta;
+        const id = a.payload.doc.id;
+        console.log('Id: ' + id + ', Objeto: ' + data);
         return {id, data};
       });
     });
-    if (recetas == null) {
+    if (this.recetas == null) {
       this.sinRegistros = true;
     } else {
-      console.log(recetas);
+      console.log(this.recetas);
     }
   }
 
@@ -50,7 +56,7 @@ export class RecetasComponent implements OnInit {
     if (res === false) {
       return;
     } else {
-      // Llamar función de eliminado.
+      this.afs.doc('Recetas/' + _key).delete();
     }
   }
 
