@@ -9,7 +9,7 @@ export const environment = {
     apiKey: 'IzaSyAKQfOyH9yi9N05LyqPCeLhPFRLAp5HxaM',
     authDomain: 'gatoagridulce.firebaseapp.com',
     databaseURL: 'https://gatoagridulce.firebaseio.com',
-    projectID: 'gatoagridulce',
+    projectId: 'gatoagridulce',
     storageBucket: 'gatoagridulce.appspot.com',
     messagingSenderId: '652830711994'
   }
