@@ -1,5 +1,4 @@
 export interface Receta {
-key: string;
 id: string;
 strNombreReceta: string;
 strDetalleReceta: string;

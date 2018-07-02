@@ -39,7 +39,7 @@ import { UsuariosService } from './usuarios.service';
     ReactiveFormsModule,
     HttpModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule.enablePersistence()
   ],
   providers: [RecetasService, AngularFireModule, AngularFireDatabase, UsuariosService],
   bootstrap: [AppComponent]

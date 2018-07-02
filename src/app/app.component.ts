@@ -11,6 +11,6 @@ import 'rxjs/add/operator/map';
 export class AppComponent {
   title = 'Gato Agridulce';
 
-  constructor(private afs: AngularFirestore) {
+  constructor() {
   }
 }

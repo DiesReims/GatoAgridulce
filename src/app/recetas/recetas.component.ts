@@ -4,6 +4,7 @@ import { RecetasService } from '../recetas.service';
 import { Router } from '@angular/router';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-recetas',
@@ -14,7 +15,7 @@ export class RecetasComponent implements OnInit {
   private sinRegistros = false;
   private servicio: RecetasService;
   private recetasAFS: AngularFirestoreCollection<Receta>;
-  private recetas: any;
+  private recetas$: Observable<any[]>;
   constructor(_sercivioReceta: RecetasService,
     private router: Router,
     private afs: AngularFirestore) {
@@ -23,19 +24,19 @@ export class RecetasComponent implements OnInit {
 
   ngOnInit() {
     this.recetasAFS = this.afs.collection('Recetas');
-    this.recetas = this.recetasAFS.snapshotChanges().map(action => {
+    this.recetas$ = this.recetasAFS.snapshotChanges().map(action => {
       return action.map(a => {
         const data = a.payload.doc.data() as Receta;
         const id = a.payload.doc.id;
         console.log('Id: ' + id + ', Objeto: ' + data);
-        return {id, data};
+        return { id, data };
       });
     });
-    if (this.recetas == null) {
-      this.sinRegistros = true;
-    } else {
-      console.log(this.recetas);
-    }
+  //  if (this.recetas$ == null) {
+  //    this.sinRegistros = true;
+  //  } else {
+  //    console.log(this.recetas$);
+  //  }
   }
 
   private editar(_key: string): void {

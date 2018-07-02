@@ -40,7 +40,6 @@ private actionMode: string;
 
 
   guardarElemento(): void {
-    this.receta.key = 'HoHuJaKo';
     this.recetaService.addReceta(this.receta);
     alert('Se guardó de forma correcta la receta.');
     this.salir();
