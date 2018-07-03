@@ -1,4 +1,4 @@
-export interface Receta {
+export class Receta {
 id: string;
 strNombreReceta: string;
 strDetalleReceta: string;

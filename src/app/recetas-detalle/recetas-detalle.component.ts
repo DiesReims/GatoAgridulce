@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { Receta } from '../Modelos/Recetas';
 import { RecetasService } from '../recetas.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-recetas-detalle',
@@ -20,7 +21,8 @@ private actionMode: string;
         private _recetaService: RecetasService,
             private route: ActivatedRoute,
                 private location: Location,
-                      private router: Router) {
+                      private router: Router,
+                       private afs: AngularFirestore) {
                               this.recetaService = _recetaService;
      }
 
@@ -30,7 +32,7 @@ private actionMode: string;
     console.log('La clave recibida es: ' + keyRecetas);
     if (keyRecetas == null) {
       this.actionMode = 'Nuevo';
-      // this.receta = new Receta();
+      this.receta = new Receta();
     } else {
       this.actionMode = 'Editar';
       // this.receta: Receta;
@@ -40,7 +42,14 @@ private actionMode: string;
 
 
   guardarElemento(): void {
-    this.recetaService.addReceta(this.receta);
+    // this.recetaService.addReceta(this.receta);
+    this.afs.collection('Recetas').add({strNombreReceta: this.receta.strNombreReceta,
+      strDetalleReceta: this.receta.strDetalleReceta,
+      intNumeroIngredientes: this.receta.intNumeroIngredientes,
+      dteFechaCreacion: this.receta.dteFechaCreacion,
+      decTiempoPreparacion: this.receta.decTiempoPreparacion,
+      curPrecioVenta: this.receta.curPrecioVenta,
+      curCostoBase: this.receta.curCostoBase});
     alert('Se guardó de forma correcta la receta.');
     this.salir();
   }
