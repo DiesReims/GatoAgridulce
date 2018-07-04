@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 
 import { Receta } from '../Modelos/Recetas';
 import { RecetasService } from '../recetas.service';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-recetas-detalle',
@@ -16,6 +17,8 @@ export class RecetasDetalleComponent implements OnInit {
 private receta: Receta;
 private recetaService: RecetasService;
 private actionMode: string;
+private recetaDoc: AngularFirestoreDocument<Receta>;
+private receta$: Observable<Receta>;
 
   constructor(
         private _recetaService: RecetasService,
@@ -36,7 +39,8 @@ private actionMode: string;
     } else {
       this.actionMode = 'Editar';
       // this.receta: Receta;
-      // Llenamos datos de receta.
+      // Consultamos la receta y cargamos la información al objeto.
+      this.obtenerReceta(keyRecetas);
     }
   }
 
@@ -54,8 +58,11 @@ private actionMode: string;
     this.salir();
   }
 
-  obtenerReceta(): void {
-    this.recetaService.getRecetas();
+  obtenerReceta(recetaId: string): void {
+    // this.recetaService.getRecetas();
+      this.recetaDoc = this.afs.doc('Recetas/' + recetaId);
+      this.receta$ = this.recetaDoc.valueChanges();
+      this.receta$.subscribe(data => this.receta = data);
   }
 
   private salir(): void {
