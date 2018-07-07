@@ -19,6 +19,7 @@ private recetaService: RecetasService;
 private actionMode: string;
 private recetaDoc: AngularFirestoreDocument<Receta>;
 private receta$: Observable<Receta>;
+private keyReceta: string;
 
   constructor(
         private _recetaService: RecetasService,
@@ -38,6 +39,7 @@ private receta$: Observable<Receta>;
       this.receta = new Receta();
     } else {
       this.actionMode = 'Editar';
+      this.keyReceta = keyRecetas;
       // this.receta: Receta;
       // Consultamos la receta y cargamos la información al objeto.
       this.obtenerReceta(keyRecetas);
@@ -65,7 +67,28 @@ private receta$: Observable<Receta>;
       this.receta$.subscribe(data => this.receta = data);
   }
 
+  editarReceta(recetaId: string): void {
+    this.afs.doc('Recetas/' + recetaId).update({strNombreReceta: this.receta.strNombreReceta,
+      strDetalleReceta: this.receta.strDetalleReceta,
+      intNumeroIngredientes: this.receta.intNumeroIngredientes,
+      dteFechaCreacion: this.receta.dteFechaCreacion,
+      decTiempoPreparacion: this.receta.decTiempoPreparacion,
+      curPrecioVenta: this.receta.curPrecioVenta,
+      curCostoBase: this.receta.curCostoBase}).then(() => {
+      alert('Se ha actualizado de forma correcta');
+      this.salir();
+    }).catch(err => console.log(err));
+  }
+
   private salir(): void {
     this.router.navigateByUrl('/recetas');
+  }
+
+  private Procesar(recetaId: string): void {
+    if (this.actionMode === 'Editar') {
+      this.editarReceta(recetaId);
+    } else {
+      this.guardarElemento();
+    }
   }
 }

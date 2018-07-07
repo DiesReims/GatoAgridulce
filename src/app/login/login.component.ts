@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   private objPost: Login;
   private usersCollection: AngularFirestoreCollection<User>;
   private usuarios$: Observable<any[]>;
+  private listaUsuariosRevision: UserId[];
 
   constructor(fb: FormBuilder,
     private route: ActivatedRoute,
@@ -53,6 +54,13 @@ export class LoginComponent implements OnInit {
           return { id, ...data };
         });
       });
+        this.usuarios$.subscribe(data => this.listaUsuariosRevision = data);
+        if (this.listaUsuariosRevision.length > 0) {
+          alert('¡Bienvenido ' + this.listaUsuariosRevision[0].strUsuario + '!');
+          this.router.navigate(['recetas']);
+        } else {
+          alert('Inicio de sesión Invalido');
+        }
     } catch (error) {
       console.log(error);
     }

@@ -36,7 +36,7 @@
                                     <input class="form-control" [(ngModel)]="receta.dteFechaCreacion" type="date" name="dteFechaCreacion">
                                 </div>
                                 <div class="form-group">     
-                                  <button [disabled]="!recetaForm.form.valid" (click)="guardarElemento()" type="button" class="btn btn-outline-success">Guardar</button>
+                                  <button [disabled]="!recetaForm.form.valid" (click)="Procesar(keyReceta)" type="button" class="btn btn-outline-success">Guardar</button>
                                   <button (click)="salir()" type="button" class="btn btn-outline-danger">Cancelar</button>
                                 </div>
                     </fieldset>
