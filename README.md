@@ -3,13 +3,13 @@
 **Primer proyecto de pruebas de desarrollo con Angular 6 y con conexión a Firestore de Google.**
 _Sistema Punto de venta para tienda de dulces elaborados, permitiendo guardar recetas, ventas y clientes._
 
-..* Ultima Fecha de Revisión: **06/07/2018**
-..* Versión 0.0.0.25 del proyecto de Angular
+ * Ultima Fecha de Revisión: **06/07/2018**
+ * Versión 0.0.0.25 del proyecto de Angular
 
 >Este proyecto es una simple prueba de desarrollo.
 
 
-##Información de desarrollo
+## Información de desarrollo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
