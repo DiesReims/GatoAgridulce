@@ -68,13 +68,7 @@ private keyReceta: string;
   }
 
   editarReceta(recetaId: string): void {
-    this.afs.doc('Recetas/' + recetaId).update({strNombreReceta: this.receta.strNombreReceta,
-      strDetalleReceta: this.receta.strDetalleReceta,
-      intNumeroIngredientes: this.receta.intNumeroIngredientes,
-      dteFechaCreacion: this.receta.dteFechaCreacion,
-      decTiempoPreparacion: this.receta.decTiempoPreparacion,
-      curPrecioVenta: this.receta.curPrecioVenta,
-      curCostoBase: this.receta.curCostoBase}).then(() => {
+    this.afs.doc('Recetas/' + recetaId).update(this.receta).then(() => {
       alert('Se ha actualizado de forma correcta');
       this.salir();
     }).catch(err => console.log(err));
