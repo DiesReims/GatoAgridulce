@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 import { Receta } from '../Modelos/Recetas';
 import { RecetasService } from '../recetas.service';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recetas-detalle',

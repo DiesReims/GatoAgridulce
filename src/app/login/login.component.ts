@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import 'rxjs/add/operator/map';
+import { map} from 'rxjs/operators';
 
 import { Login } from '../Modelos/Login';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export interface User { strUsuario: string; strPassword: number; }
 export interface UserId extends User { id: string; }
@@ -47,13 +47,13 @@ export class LoginComponent implements OnInit {
       this.usersCollection = this.afs.collection('Usuarios', ref => ref.where('strPassword', '==', this.objPost.strPassword)
         .where('strUsuario', '==', this.objPost.strUsuario));
         // Obtener la lista del observable.
-      this.usuarios$ = this.usersCollection.snapshotChanges().map(action => {
+      this.usuarios$ = this.usersCollection.snapshotChanges().pipe(map(action => {
         return action.map(a => {
           const data = a.payload.doc.data() as User;
           const id = a.payload.doc.id;
           return { id, ...data };
         });
-      });
+      }));
         this.usuarios$.subscribe(data => this.listaUsuariosRevision = data);
         if (this.listaUsuariosRevision.length > 0) {
           alert('¡Bienvenido ' + this.listaUsuariosRevision[0].strUsuario + '!');

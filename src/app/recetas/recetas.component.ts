@@ -1,16 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { trigger, style, animate, keyframes, query, stagger, transition } from '@angular/animations';
 import { Receta } from '../Modelos/Recetas';
 import { RecetasService } from '../recetas.service';
-import { Router } from '@angular/router';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-recetas',
   templateUrl: './recetas.component.html',
   styleUrls: ['./recetas.component.css']
-})
+  /*animations: [
+    trigger('Recetas', [
+      transition('* => *', [
+        query(':enter', style({opacity: 0}), {optional: true}),
+        query(':enter', stagger('300ms', [
+          animate('.6s ease in', keyframes([
+            style({opacity: 0, transform: 'translateY(-70%)', offset: 0}),
+            style({opacity: .5, transform: 'translateY(35px)', offset: .3}),
+            style({opacity: 1, transform: 'translateY(-70%)', offset: 1}),
+          ]))]), {optional: true})
+      ])
+    ])
+  ]*/
+  })
+
 export class RecetasComponent implements OnInit {
   private sinRegistros = false;
   private servicio: RecetasService;
@@ -24,14 +39,14 @@ export class RecetasComponent implements OnInit {
 
   ngOnInit() {
     this.recetasAFS = this.afs.collection('Recetas');
-    this.recetas$ = this.recetasAFS.snapshotChanges().map(action => {
+    this.recetas$ = this.recetasAFS.snapshotChanges().pipe(map(action => {
       return action.map(a => {
         const data = a.payload.doc.data() as Receta;
         const id = a.payload.doc.id;
         console.log('Id: ' + id + ', Objeto: ' + data);
         return { id, data };
       });
-    });
+    }));
   //  if (this.recetas$ == null) {
   //    this.sinRegistros = true;
   //  } else {
