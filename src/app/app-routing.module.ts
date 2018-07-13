@@ -6,14 +6,16 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { MainComponent } from './main/main.component';
 import { ClientesDetalleComponent } from './clientes-detalle/clientes-detalle.component';
 import { LoginComponent } from './login/login.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
-  {path: 'login', component:LoginComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'main', component: MainComponent},
   {path: 'recetas', component: RecetasComponent },
   {path: 'recetasDetalle', component: RecetasDetalleComponent},
   {path: 'recetasDetalle/:key', component: RecetasDetalleComponent},
+  {path: 'usuarios', component: UsuariosComponent},
   {path: 'clientes', component: ClientesComponent},
   {path: 'clientesDetalle/:key', component: ClientesDetalleComponent}
 ];

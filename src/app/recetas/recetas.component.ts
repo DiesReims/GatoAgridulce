@@ -10,20 +10,20 @@ import { RecetasService } from '../recetas.service';
 @Component({
   selector: 'app-recetas',
   templateUrl: './recetas.component.html',
-  styleUrls: ['./recetas.component.css']
-  /*animations: [
+  styleUrls: ['./recetas.component.css'],
+  animations: [
     trigger('Recetas', [
       transition('* => *', [
         query(':enter', style({opacity: 0}), {optional: true}),
         query(':enter', stagger('300ms', [
-          animate('.6s ease in', keyframes([
+          animate('.6s ease-in', keyframes([
             style({opacity: 0, transform: 'translateY(-70%)', offset: 0}),
             style({opacity: .5, transform: 'translateY(35px)', offset: .3}),
             style({opacity: 1, transform: 'translateY(-70%)', offset: 1}),
           ]))]), {optional: true})
       ])
     ])
-  ]*/
+  ]
   })
 
 export class RecetasComponent implements OnInit {
