@@ -1,73 +1,114 @@
 <div class="container">
-        <!--div class="col-md-4 center_div" *ngIf="receta"-->
-        <div class="col-md-4 center_div">
-                <form #recetaForm="ngForm">
-                    <legend>Receta {{actionMode}}</legend>
-                    <fieldset>
-                                <div class="form-group">
-                                    <label>Nombre receta:</label>
-                                    <input class="form-control" [(ngModel)]="receta.strNombreReceta" name="strnombreReceta" #name="ngModel" required>
-                                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                                        ¡Nombre es requerido!
-                                    </div>
+    <div class="col-md-4 center_div">
+        <form #recetaForm="ngForm">
+            <legend>Receta {{actionMode}}</legend>
+            <fieldset>
+                <div class="form-group">
+                    <label>Nombre receta:</label>
+                    <input class="form-control" [(ngModel)]="receta.strNombreReceta" name="strnombreReceta" #name="ngModel" required>
+                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                        ¡Nombre es requerido!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Detalle:</label>
+                    <input class="form-control" [(ngModel)]="receta.strDetalleReceta" name="strDetalleReceta" #detalleReceta="ngModel" maxlength="150">
+                    <div *ngIf="detalleReceta.invalid && (detalleReceta.dirty || detalleReceta.touched)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Número ingredientes:</label>
+                    <input class="form-control" [(ngModel)]="receta.intNumeroIngredientes" type="number" name="intNumeroIngredientes" #noIngredientes="ngModel"
+                        required>
+                    <div *ngIf="noIngredientes.invalid && (noIngredientes.dirty || noIngredientes.touched)">
+                        <div *ngIf="noIngredientes.errors?.required" class="alert alert-danger">
+                            ¡Debe ingresar la cantidad de ingredientes!
+                        </div>
+                    </div>
+                    <div *ngIf="noIngredientes.valid && (noIngredientes.dirty || noIngredientes.touched)">
+                        <div *ngIf="noIngredientes.value <= 0" class="alert alert-danger">
+                            ¡La cantidad no puede ser negativa!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tiempo preparación:</label>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input class="form-control" [(ngModel)]="receta.decTiempoPreparacion" type="number" name="decTiempoPreparacion" #tiempoPrep="ngModel" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Min.</span>
+                            </div>
+                        </div>
+                        <div *ngIf="tiempoPrep.invalid && (tiempoPrep.dirty || tiempoPrep.touched)">
+                            <div *ngIf="tiempoPrep.errors?.required" class="alert alert-danger">
+                                    ¡Debe ingresar los minutos!
+                            </div>
+                        </div>
+                        <div *ngIf="tiempoPrep.valid && (tiempoPrep.dirty || tiempoPrep.touched)">
+                            <div *ngIf="tiempoPrep.value <= 0" class="alert alert-danger">
+                                    ¡El tiempo no puede ser negativo!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Costo elaboración:</label>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input class="form-control" [(ngModel)]="receta.curCostoBase" type="number" name="curCostoBase" #costoBase="ngModel" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">MXN</span>
+                            </div>
+                        </div>
+                        <div *ngIf="costoBase.invalid && (costoBase.dirty || costoBase.touched)">
+                                <div *ngIf="costoBase.errors?.required" class="alert alert-danger">
+                                        ¡Debe ingresar el costo base!
                                 </div>
-                                <div class="form-group">
-                                  <label>Detalle:</label>
-                                  <input class="form-control" [(ngModel)]="receta.strDetalleReceta" name="strDetalleReceta">
+                        </div>
+                        <div *ngIf="costoBase.valid && (costoBase.dirty || costoBase.touched)">
+                            <div *ngIf="costoBase.value <= 0" class="alert alert-danger">
+                                        ¡El costo no puede ser negativo!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Precio venta:</label>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input class="form-control" [(ngModel)]="receta.curPrecioVenta" type="number" name="curPrecioVenta" #precioVenta="ngModel" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">MXN</span>
+                            </div>
+                        </div>
+                        <div *ngIf="precioVenta.invalid && (precioVenta.dirty || precioVenta.touched)">
+                                <div *ngIf="precioVenta.errors?.required" class="alert alert-danger">
+                                        ¡Debe ingresar el precio venta!
                                 </div>
-                                <div class="form-group">
-                                    <label>Número ingredientes:</label>
-                                    <input class="form-control" [(ngModel)]="receta.intNumeroIngredientes" type="number" name="intNumeroIngredientes">
-                                </div>
-                                <div class="form-group">
-                                    <label>Tiempo preparacción:</label>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                                <input class="form-control" [(ngModel)]="receta.decTiempoPreparacion" type="number" name="decTiempoPreparacion">
-                                                <div class="input-group-append">
-                                                        <span class="input-group-text">Min.</span>
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Costo elaboración:</label>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                        <span class="input-group-text">$</span>
-                                                </div>
-                                                <input class="form-control" [(ngModel)]="receta.curCostoBase" type="number" name="curCostoBase">
-                                                <div class="input-group-append">
-                                                        <span class="input-group-text">MXN</span>
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Precio venta:</label>
-                                    <div class="form-group">
-                                            <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                            <span class="input-group-text">$</span>
-                                                    </div>
-                                                    <input class="form-control" [(ngModel)]="receta.curPrecioVenta" type="number" name="curPrecioVenta">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">MXN</span>
-                                                    </div>
-                                            </div>                                       
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Fecha creación:</label>
-                                    <input class="form-control" [(ngModel)]="receta.dteFechaCreacion" type="date" name="dteFechaCreacion">
-                                </div>
-                                <div class="form-group">     
-                                  <button [disabled]="!recetaForm.form.valid" (click)="Procesar(keyReceta)" type="button" class="btn btn-outline-success">Guardar</button>
-                                  <button (click)="salir()" type="button" class="btn btn-outline-danger">Cancelar</button>
-                                </div>
-                    </fieldset>
-                </form>
-        </div>
+                        </div>
+                        <div *ngIf="precioVenta.valid && (precioVenta.dirty || precioVenta.touched)">
+                            <div *ngIf="precioVenta.value <= 0" class="alert alert-danger">
+                                        ¡El precio no puede ser negativo!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Fecha creación:</label>
+                    <input class="form-control" [(ngModel)]="receta.dteFechaCreacion" type="date" name="dteFechaCreacion">
+                </div>
+                <div class="form-group">
+                    <button [disabled]="!recetaForm.form.valid" (click)="Procesar(keyReceta)" type="button" class="btn btn-outline-success">Guardar</button>
+                    <button (click)="salir()" type="button" class="btn btn-outline-danger">Cancelar</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>
-
