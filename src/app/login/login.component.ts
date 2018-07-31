@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { map} from 'rxjs/operators';
 
-import { Login } from '../Modelos/Login';
+import { Usuario } from '../Modelos/Usuario';
 import { Observable } from 'rxjs';
 
 export interface User { strUsuario: string; strPassword: number; }
@@ -20,7 +20,7 @@ export interface UserId extends User { id: string; }
 export class LoginComponent implements OnInit {
 
   private loginForm: FormGroup;
-  private objPost: Login;
+  private objPost: Usuario;
   private usersCollection: AngularFirestoreCollection<User>;
   private usuarios$: Observable<any[]>;
   private listaUsuariosRevision: UserId[];

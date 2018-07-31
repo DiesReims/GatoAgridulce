@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Login } from '../Modelos/Login';
+import { Usuario } from '../Modelos/Usuario';
 
 @Component({
   selector: 'app-usuarios-detalle',
@@ -12,10 +12,10 @@ import { Login } from '../Modelos/Login';
   styleUrls: ['./usuarios-detalle.component.css']
 })
 export class UsuariosDetalleComponent implements OnInit {
-  private usuario: Login;
+  private usuario: Usuario;
   private actionMode: string;
-  private usuarioDoc: AngularFirestoreDocument<Login>;
-  private usuario$: Observable<Login>;
+  private usuarioDoc: AngularFirestoreDocument<Usuario>;
+  private usuario$: Observable<Usuario>;
   private keyUsuario: string;
 
   constructor(private route: ActivatedRoute,
@@ -29,7 +29,7 @@ export class UsuariosDetalleComponent implements OnInit {
     console.log('La clave recibida es: ' + keyUsuarios);
     if (keyUsuarios == null) {
       this.actionMode = 'Nuevo';
-      this.usuario = new Login();
+      this.usuario = new Usuario();
       } else {
         this.actionMode = 'Editar';
         this.keyUsuario = keyUsuarios;

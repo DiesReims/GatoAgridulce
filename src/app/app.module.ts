@@ -6,7 +6,7 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { RecetasComponent } from './recetas/recetas.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { RecetasDetalleComponent } from './recetas-detalle/recetas-detalle.component';
 import { RecetasService } from './recetas.service';
 import { ClientesComponent } from './clientes/clientes.component';

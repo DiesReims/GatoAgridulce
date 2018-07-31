@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {map} from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Login } from '../Modelos/Login';
+import { Usuario } from '../Modelos/Usuario';
 
 @Component({
   selector: 'app-usuarios',
@@ -13,7 +13,7 @@ import { Login } from '../Modelos/Login';
 export class UsuariosComponent implements OnInit {
 
   private sinRegistros = false;
-  private usuariosAFS: AngularFirestoreCollection<Login>;
+  private usuariosAFS: AngularFirestoreCollection<Usuario>;
   private usuarios$: Observable<any[]>;
 
   constructor(private router: Router,
@@ -23,7 +23,7 @@ export class UsuariosComponent implements OnInit {
     this.usuariosAFS = this.afs.collection('Usuarios');
     this.usuarios$ = this.usuariosAFS.snapshotChanges().pipe(map(action => {
       return action.map(a => {
-        const data = a.payload.doc.data() as Login;
+        const data = a.payload.doc.data() as Usuario;
         const id = a.payload.doc.id;
         console.log('Id: ' + id + ', Objeto: ' + data);
         return { id, data };
