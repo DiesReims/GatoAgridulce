@@ -42,10 +42,8 @@ export class LoginComponent implements OnInit {
   private logear(_post: any): void {
     try {
       this.objPost = _post;
-      // TODO:Logica de servicio y validación...
       this.usersCollection = this.afs.collection('Usuarios', ref => ref.where('strPassword', '==', this.objPost.strPassword)
         .where('strUsuario', '==', this.objPost.strUsuario));
-      // Obtener la lista del Observable.
       this.usuarios$ = this.usersCollection.snapshotChanges().pipe(map(action => {
         return action.map(a => {
           const data = a.payload.doc.data() as User;
@@ -61,9 +59,9 @@ export class LoginComponent implements OnInit {
         } else {
           this.showMessageLoginInvalid();
         }
-    } catch (_e) {
+    }catch (_e) {
       alert('Ha ocurrido un error al tratar la acción.');
-      console.log(_e);
+      console.log('Error:' + _e);
     }
   }
 
