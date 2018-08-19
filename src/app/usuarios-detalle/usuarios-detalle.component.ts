@@ -24,41 +24,49 @@ export class UsuariosDetalleComponent implements OnInit {
     private afs: AngularFirestore) {}
 
   ngOnInit() {
-    // Nuevo Flujo
     const keyUsuarios = this.route.snapshot.paramMap.get('key');
-    console.log('La clave recibida es: ' + keyUsuarios);
     if (keyUsuarios == null) {
       this.actionMode = 'Nuevo';
       this.usuario = new Usuario();
       } else {
         this.actionMode = 'Editar';
         this.keyUsuario = keyUsuarios;
-        // this.receta: Receta;
-        // Consultamos la receta y cargamos la información al objeto.
-        this.obtenerReceta(keyUsuarios);
+        this.obtenerUsuario(keyUsuarios);
         }
   }
 
-  guardarElemento(): void {
-    // this.recetaService.addReceta(this.receta);
+  private guardarElemento(): void {
     this.afs.collection('Usuarios').add({strUsuario: this.usuario.strUsuario,
-      strPassword: this.usuario.strPassword});
-    alert('Se guardo de forma correcta el usuario.');
-    this.salir();
-  }
+      strPassword: this.usuario.strPassword}).then(() => {
+        alert('Se guardó de forma correcta el usuario.');
+        this.salir();
+      }).catch(error => {
+        alert('Ha ocurrido un error al registrar el usuario.');
+        console.log('Error: ' + error);
+        this.salir();
+      });
+    }
 
-  obtenerReceta(usuarioId: string): void {
-    // this.recetaService.getRecetas();
+   private obtenerUsuario(usuarioId: string): void {
       this.usuarioDoc = this.afs.doc('Usuarios/' + usuarioId);
       this.usuario$ = this.usuarioDoc.valueChanges();
-      this.usuario$.subscribe(data => this.usuario = data);
+      this.usuario$.subscribe(data => this.usuario = data,
+      error => {
+        alert('Ha ocurrido un error al consultar el usuario.');
+        console.log('Error: ' + error);
+        this.salir();
+      });
   }
 
-  editarUsuario(usuarioId: string): void {
+  private editarUsuario(usuarioId: string): void {
     this.afs.doc('Usuarios/' + usuarioId).update(this.usuario).then(() => {
       alert('Se ha actualizado de forma correcta');
       this.salir();
-    }).catch(err => console.log(err));
+    }).catch(error => {
+      alert('Ha ocurrido un error al registrar el usuario.');
+      console.log('Error: ' + error);
+      this.salir();
+    });
   }
 
   private salir(): void {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {map} from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { trigger, style, animate, keyframes, query, stagger, transition } from '@angular/animations';
 import { Receta } from '../Modelos/Recetas';
@@ -14,17 +14,17 @@ import { RecetasService } from '../recetas.service';
   animations: [
     trigger('Recetas', [
       transition('* => *', [
-        query(':enter', style({opacity: 0}), {optional: true}),
+        query(':enter', style({ opacity: 0 }), { optional: true }),
         query(':enter', stagger('300ms', [
           animate('.6s ease-in', keyframes([
-            style({opacity: 0, transform: 'translateY(-70%)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)', offset: .3}),
-            style({opacity: 1, transform: 'translateY(-70%)', offset: 1}),
-          ]))]), {optional: true})
+            style({ opacity: 0, transform: 'translateY(-70%)', offset: 0 }),
+            style({ opacity: .5, transform: 'translateY(35px)', offset: .3 }),
+            style({ opacity: 1, transform: 'translateY(-70%)', offset: 1 }),
+          ]))]), { optional: true })
       ])
     ])
   ]
-  })
+})
 
 export class RecetasComponent implements OnInit {
   private sinRegistros = false;
@@ -47,33 +47,37 @@ export class RecetasComponent implements OnInit {
         return { id, data };
       });
     }));
-  //  if (this.recetas$ == null) {
-  //    this.sinRegistros = true;
-  //  } else {
-  //    console.log(this.recetas$);
-  //  }
   }
 
   private editar(_key: string): void {
     const loadPage = this.router.navigate(['recetasDetalle', _key]);
     loadPage.then((val) => {
-      if (val) {
-        console.log('Se cargo de forma correcta pantalla de edición');
-      }else {
-        console.log('No se logró cargar de forma correcta');
+      if (!val) {
+        console.log('¡No se pudo cargar la pantalla!');
       }
-    }, (err) => {
-      alert('Ocurrio un error al momento de cargar la pantalla' + err);
+    }, _e => {
+      alert('¡No se pudo cargar la pantalla!');
+      console.log('Error: ' + _e);
+    }).catch(_e => {
+      alert('Ha ocurrido un error al cargar la pantalla.');
+      console.log('Error: ' + _e);
     });
   }
 
   private eliminar(_key: string): void {
-    const res = confirm('¿Deseas eliminar la receta?');
-    if (res === false) {
+    if (!this.askConfirmDelete()) {
       return;
-    } else {
-      this.afs.doc('Recetas/' + _key).delete();
     }
+    this.afs.doc('Recetas/' + _key).delete().then(() => {
+      alert('Se ha eliminado de forma correcta.');
+    }).catch(_e => {
+      alert('Ha ocurrido un error al eliminar la receta, espere e intente nuevamente.');
+      console.log('Error: ' +  _e);
+    });
+  }
+
+  private askConfirmDelete(): boolean {
+    return confirm('¿Deseas eliminar la Receta?');
   }
 
 }

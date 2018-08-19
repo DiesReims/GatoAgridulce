@@ -34,23 +34,31 @@ export class UsuariosComponent implements OnInit {
   private editar(_key: string): void {
     const loadPage = this.router.navigate(['usuariosDetalle', _key]);
     loadPage.then((val) => {
-      if (val) {
-        console.log('Se cargo de forma correcta pantalla de edición');
-      }else {
-        console.log('No se logró cargar de forma correcta');
-      }
-    }, (err) => {
-      alert('Ocurrio un error al momento de cargar la pantalla' + err);
+      if (!val) {
+        console.log('¡No se pudo cargar la pantalla!');
+      }}, _e => {
+      alert('¡No se pudo cargar la pantalla!');
+      console.log('Error: ' + _e);
+    }).catch(_e => {
+      alert('Ha ocurrido un error al cargar la pantalla.');
+      console.log('Error: ' + _e);
     });
   }
 
   private eliminar(_key: string): void {
-    const res = confirm('¿Deseas eliminar el usuario?');
-    if (res === false) {
+    if (!this.askConfirmDelete()) {
       return;
-    } else {
-      this.afs.doc('Usuarios/' + _key).delete();
     }
+      this.afs.doc('Usuarios/' + _key).delete().then(() => {
+        alert('Se ha eliminado de forma correcta.');
+      }).catch(_e => {
+        alert('Ha ocurrido un error al eliminar el usuario, espere e intente nuevamente.');
+        console.log('Error: ' +  _e);
+      });
+  }
+
+  private askConfirmDelete(): boolean {
+    return confirm('¿Deseas eliminar la Receta?');
   }
 
 }

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Usuario } from '../Modelos/Usuario';
 import { Observable } from 'rxjs';
@@ -39,14 +39,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  logear(_post: any): void {
+  private logear(_post: any): void {
     try {
       this.objPost = _post;
-      console.log(this.objPost);
       // TODO:Logica de servicio y validación...
       this.usersCollection = this.afs.collection('Usuarios', ref => ref.where('strPassword', '==', this.objPost.strPassword)
         .where('strUsuario', '==', this.objPost.strUsuario));
-        // Obtener la lista del observable.
+      // Obtener la lista del Observable.
       this.usuarios$ = this.usersCollection.snapshotChanges().pipe(map(action => {
         return action.map(a => {
           const data = a.payload.doc.data() as User;
@@ -54,15 +53,29 @@ export class LoginComponent implements OnInit {
           return { id, ...data };
         });
       }));
-        this.usuarios$.subscribe(data => this.listaUsuariosRevision = data);
-        if (this.listaUsuariosRevision.length > 0) {
-          alert('¡Bienvenido ' + this.listaUsuariosRevision[0].strUsuario + '!');
+      this.usuarios$.subscribe(data => this.listaUsuariosRevision = data,
+        error => console.log('Ha ocurrido un error: ' + error));
+        if (this.isUserValid()) {
+          this.showMessageLoginValid();
           this.router.navigate(['recetas']);
         } else {
-          alert('Inicio de sesión Invalido');
+          this.showMessageLoginInvalid();
         }
-    } catch (error) {
-      console.log(error);
+    } catch (_e) {
+      alert('Ha ocurrido un error al tratar la acción.');
+      console.log(_e);
     }
+  }
+
+  private isUserValid(): boolean {
+    return this.listaUsuariosRevision.length > 0;
+  }
+
+  private showMessageLoginValid(): void {
+     alert('¡Bienvenido ' + this.listaUsuariosRevision[0].strUsuario + '!');
+    }
+
+  private showMessageLoginInvalid(): void {
+    alert('¡El usuario o contraseña no son validos!');
   }
 }
